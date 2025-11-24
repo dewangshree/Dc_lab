@@ -22,7 +22,7 @@ print("Time Parallel :", round(tp,4),"sec")
 
 
 
-#OTPUT
+#OUTPUT
 Pi Sequential : 3.141593
 Time Sequential: 0.32 sec
 Pi Parallel   : 3.141592
