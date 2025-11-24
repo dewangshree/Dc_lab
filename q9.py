@@ -1,40 +1,34 @@
 import time
 from multiprocessing import Pool
 
-def merge(L,R):
-    a=[]
-    while L and R: a.append((L if L[0]<R[0] else R).pop(0))
-    return a+L+R
-
-def ms(a):
+def m(a):
     if len(a)<2: return a
-    m=len(a)//2
-    return merge(ms(a[:m]), ms(a[m:]))
+    m2=len(a)//2
+    L,R=m(a[:m2]),m(a[m2:])
+    r=[]
+    while L and R: r.append((L if L[0]<R[0] else R).pop(0))
+    return r+L+R
 
-def parallel_ms(a):
+def pm(a):
     if len(a)<2: return a
-    m=len(a)//2
-    with Pool(2) as p:
-        L,R=p.map(ms,[a[:m],a[m:]])
-    return merge(L,R)
+    m2=len(a)//2
+    L,R=Pool(2).map(m,[a[:m2],a[m2:]])
+    return m(L+R)
 
-arr=[5,3,8,9,1,2,6,4]
+A=[5,3,8,9,1,2,6,4]
 
-t1=time.time()
-s1=ms(arr.copy())
-t1=time.time()-t1
-
-t2=time.time()
-s2=parallel_ms(arr.copy())
-t2=time.time()-t2
+t=time.time(); s1=m(A.copy()); t1=time.time()-t
+t=time.time(); s2=pm(A.copy()); t2=time.time()-t
 
 print("Sequential:",t1)
 print("Parallel:",t2)
 print("Sorted:",s2)
 
 
+
 #OUTPUT
-Sequential: 0.000312
-Parallel:   0.000198
+Sequential: 0.000xxx
+Parallel: 0.000xxx
 Sorted: [1, 2, 3, 4, 5, 6, 8, 9]
+
 
