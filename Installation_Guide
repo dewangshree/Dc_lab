@@ -8,7 +8,7 @@
 -mpirun --version
 -python3 -c "import mpi4py; print('MPI4PY OK')"
 
-//Create Folder for MPI programs
+//Create Folder for MPI programs //Optional
 -mkdir ~/py_mpi
 -cd ~/py_mpi
 
